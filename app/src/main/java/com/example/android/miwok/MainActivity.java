@@ -18,6 +18,9 @@ package com.example.android.miwok;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -32,46 +35,15 @@ public class MainActivity extends AppCompatActivity {
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
 
-        //wire up the onclick listener
-        TextView numbersTextView = (TextView)findViewById(R.id.numbers);
-        TextView familyTextView = (TextView)findViewById(R.id.family);
-        TextView phrasesTextView = (TextView)findViewById(R.id.phrases);
-        TextView colorsTextView = (TextView)findViewById(R.id.colors);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        FragmentManager fm = this.getSupportFragmentManager();
+        MiwokFragmentAdaptor adapter = new MiwokFragmentAdaptor(fm);
+        viewPager.setAdapter(adapter);
 
-        numbersTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent  i = new Intent(v.getContext(), NumbersActivity.class);
-                startActivity(i);
-            }
-        });
+        // Give the TabLayout the ViewPager
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
-        familyTextView.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              Intent  i = new Intent(v.getContext(), FamilyActivity.class);
-              startActivity(i);
-          }
-        });
-
-        phrasesTextView.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Intent  i = new Intent(v.getContext(), PhrasesActivity.class);
-                startActivity(i);
-            }
-        });
-
-        colorsTextView.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Intent  i = new Intent(v.getContext(), ColorsActivity.class);
-                startActivity(i);
-            }
-        });
     }
-
 
 }
